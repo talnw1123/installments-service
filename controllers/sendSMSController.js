@@ -25,33 +25,23 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-async function sendSMS(req, res) {
-  if (!process.env.TWILIO_SID || !process.env.TWILIO_AUTH_TOKEN) {
-    console.log("Twilio SID or Auth Token is not set in environment variables");
-    return res.status(500).send("Server configuration error");
-  }
-
+async function sendSMS() {
   try {
     const client = new twilio(
       process.env.TWILIO_SID,
       process.env.TWILIO_AUTH_TOKEN
     );
-    const { to, body } = req.body;
 
     const message = await client.messages.create({
-      body: body,
+      body: "ถึงวันครบกำหนดจ่ายค่างวด",
       from: process.env.PHONE_NUMBER,
-      to: to,
+      to: "+66646157538",
     });
 
-    console.log(message.sid, "Message sent");
-    res.send("SMS sent successfully!");
+    console.log(message.sid, "Message sent:", "ถึงวันครบกำหนดจ่ายค่างวด");
   } catch (error) {
     console.error(error);
-    res.status(500).send("Error sending SMS");
   }
 }
-
-module.exports = { sendSMS };
 
 module.exports = { sendSMS };

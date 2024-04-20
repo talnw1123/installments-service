@@ -8,6 +8,8 @@ const userRoutes = require("./routes/userRoute");
 const checkToken = require("./controllers/checkTokenController");
 const sendSMS = require("./routes/sendSMSRoute");
 const cors = require("cors");
+const cron = require("node-cron");
+const sendSMSController = require("./controllers/sendSMSController");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -32,6 +34,11 @@ db.once("open", () => {
 //     credentials: true,
 //   })
 // );
+
+cron.schedule(process.env.JOB_SCHEDULE, () => {
+  // ใช้คำสั่ง find db เช็คว่าวันปัจจุบันใครยังไม่จ่ายค่างวดบ้าง แล้วให้ส่ง sms
+  // sendSMSController.sendSMS();
+});
 
 app.use("/users", userRoutes);
 app.get("/api/checkToken", checkToken);

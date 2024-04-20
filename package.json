@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.2",
+    "node-cron": "^3.0.3",
     "twilio": "^5.0.4"
   },
   "devDependencies": {
