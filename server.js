@@ -10,6 +10,7 @@ const sendSMS = require("./routes/sendSMSRoute");
 const cors = require("cors");
 const cron = require("node-cron");
 const sendSMSController = require("./controllers/sendSMSController");
+const contractRoutes = require("./routes/contractRoute");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -35,14 +36,15 @@ db.once("open", () => {
 //   })
 // );
 
-cron.schedule(process.env.JOB_SCHEDULE, () => {
-  // ใช้คำสั่ง find db เช็คว่าวันปัจจุบันใครยังไม่จ่ายค่างวดบ้าง แล้วให้ส่ง sms
-  // sendSMSController.sendSMS();
-});
+// cron.schedule(process.env.JOB_SCHEDULE, () => {
+//   // ใช้คำสั่ง find db เช็คว่าวันปัจจุบันใครยังไม่จ่ายค่างวดบ้าง แล้วให้ส่ง sms
+//   // sendSMSController.sendSMS();
+// });
 
 app.use("/users", userRoutes);
 app.get("/api/checkToken", checkToken);
 app.use("/sms", sendSMS);
+app.use("/contract", contractRoutes);
 
 // app.get("/", (req, res) => {
 //   res.status(200).send("Welcome Kmutt");
