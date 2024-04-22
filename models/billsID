@@ -1,32 +1,35 @@
 const mongoose = require("mongoose");
 
-const userSchema = mongoose.Schema(
+const billsSchema = mongoose.Schema(
     {
-        firstName:{
+        billsID:{
             type: String,
             required: true,
             unique: true
         },
-        lastName:{
+        contractNumber:{
             type: String,
             required: true,
             unique: true
         },
-        email: {
-            type: String,
+        wholePrice: {
+            type: Number,
             required: true,
-            unique: true
         },
-        password: {
-            type: String,
+        downPayment: {
+            type: Number,
             required: true
         },
-        address: {
-            type: String,
+        numberOfInstallment: {
+            type: Number,
             required: true
         },
-        phone: {
-            type: String,
+        interest: {
+            type: Number,
+            required: true
+        },
+        totalAmount: {
+            type: Number,
             required: true
         }
     },
@@ -41,4 +44,4 @@ const userSchema = mongoose.Schema(
 //     return token;
 //   };
   
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("Bills", billsSchema);

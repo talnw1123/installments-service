@@ -1,27 +1,9 @@
-const express = require('express');
+const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-const mongoose = require('mongoose');
+const generateToken = require("../config/generateToken");
 
-const router = express.Router();
-
-// Middleware สำหรับตั้งค่า Header เพื่ออนุญาตการเข้าถึง API จากโดเมนต่าง ๆ
-router.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
-});
-
-// Route สำหรับการดึงข้อมูล Users ทั้งหมด
-router.get('/', async (req, res) => {
-  const users = await User.find({}).sort({ createdAt: -1 });
-  console.log("my users is ", users);
-  res.status(200).json(users);
-});
-
-// Route สำหรับการลงทะเบียน User ใหม่
-router.post('/register', async (req, res) => {
-  const { firstName,lastName,email, password, address, phone } = req.body;
+const register = async (req, res) => {
+  const { firstName, lastName, email, password, address, phone } = req.body;
 
   // ตรวจสอบข้อมูลที่ส่งมาใน request body
   let emptyFields = [];
@@ -50,11 +32,15 @@ router.post('/register', async (req, res) => {
 
   try {
     // สร้าง User ใหม่โดยใช้ Model User
-    const user = await User.create({ firstName,lastName,email, password, address, phone });
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(400).json({ err: error.message });
-  }
-});
+    const user = await User.create({ firstName, lastName, email, password, address, phone });
 
-module.exports = router;
+    // สร้าง JWT token
+    const token = generateToken(user._id);
+
+    res.status(200).json({ user, token }); // ส่ง user และ token กลับไปให้กับผู้ใช้งาน
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = register;

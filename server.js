@@ -5,7 +5,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/userRoute");
+
+const login = require('./controllers/loginController')
+const register = require('./controllers/registerController')
 const checkToken = require('./controllers/checkTokenController');
+const createCard = require('./controllers/createCardController')
 
 const cors = require("cors");
 const app = express();
@@ -20,8 +24,10 @@ app.use(
 
 app.use(express.json());
 
-app.use("/users", userRoutes);
+app.post("/users/login", login)
+app.post("/users/register", register)
 app.get('/api/checkToken', checkToken)
+app.post('/api/createCard',createCard)
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
