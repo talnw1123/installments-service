@@ -25,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.2",
+    "mongoose-auto-increment": "^5.0.1",
     "node-cron": "^3.0.3",
     "puppeteer-html-pdf": "^4.0.6",
     "twilio": "^5.0.4"

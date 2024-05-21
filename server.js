@@ -10,6 +10,10 @@ const login = require('./controllers/loginController')
 const register = require('./controllers/registerController')
 const checkToken = require("./controllers/checkTokenController");
 const createCard = require('./controllers/createCardController')
+const createBill = require('./controllers/addBillsController')
+const getBorrowers = require('./controllers/getAllBorrowerController')
+const getEachBorrowers = require('./controllers/getEachBorrowerController')
+
 const sendSMS = require("./routes/sendSMSRoute");
 const cors = require("cors");
 const cron = require("node-cron");
@@ -33,12 +37,12 @@ db.once("open", () => {
   console.log("Connected to MongoDB");
 });
 
-// app.use(
-//   cors({
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
 // cron.schedule(process.env.JOB_SCHEDULE, () => {
 //   // ใช้คำสั่ง find db เช็คว่าวันปัจจุบันใครยังไม่จ่ายค่างวดบ้าง แล้วให้ส่ง sms
@@ -56,7 +60,12 @@ app.use("/contract", contractRoutes);
 app.post("/users/login", login)
 app.post("/users/register", register)
 app.get('/api/checkToken', checkToken)
+
 app.post('/api/createCard',createCard)
+app.post('/api/addBill',createBill)
+
+app.get('/api/getBorrowers',getBorrowers)
+app.get('/api/getEachBorrowers/:nationID', getEachBorrowers);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
