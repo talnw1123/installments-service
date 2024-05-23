@@ -46,9 +46,9 @@ app.use(
   })
 );
 
-cron.schedule(process.env.JOB_SCHEDULE, () => {
-  sendSMSController.sendSMS();
-});
+// cron.schedule(process.env.JOB_SCHEDULE, () => {
+//   sendSMSController.sendSMS();
+// });
 
 app.use("/users", userRoutes);
 app.get("/api/checkToken", checkToken);
