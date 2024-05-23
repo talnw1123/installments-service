@@ -46,10 +46,9 @@ app.use(
   })
 );
 
-// cron.schedule(process.env.JOB_SCHEDULE, () => {
-//   // ใช้คำสั่ง find db เช็คว่าวันปัจจุบันใครยังไม่จ่ายค่างวดบ้าง แล้วให้ส่ง sms
-//   // sendSMSController.sendSMS();
-// });
+cron.schedule(process.env.JOB_SCHEDULE, () => {
+  sendSMSController.sendSMS();
+});
 
 app.use("/users", userRoutes);
 app.get("/api/checkToken", checkToken);
