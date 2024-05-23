@@ -6,13 +6,15 @@ const port = process.env.PORT || 4000;
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoute");
 
-const login = require('./controllers/loginController')
-const register = require('./controllers/registerController')
+const login = require("./controllers/loginController");
+const register = require("./controllers/registerController");
 const checkToken = require("./controllers/checkTokenController");
-const createCard = require('./controllers/createCardController')
-const createBill = require('./controllers/addBillsController')
-const getBorrowers = require('./controllers/getAllBorrowerController')
-const getEachBorrowers = require('./controllers/getEachBorrowerController')
+const createCard = require("./controllers/createCardController");
+const createBill = require("./controllers/addBillsController");
+const getBorrowers = require("./controllers/getAllBorrowerController");
+const getEachBorrowers = require("./controllers/getEachBorrowerController");
+
+const creditScrolling = require("./controllers/creditScrollingController");
 
 const sendSMS = require("./routes/sendSMSRoute");
 const cors = require("cors");
@@ -57,15 +59,17 @@ app.use("/contract", contractRoutes);
 // app.get("/", (req, res) => {
 //   res.status(200).send("Welcome Kmutt");
 // });
-app.post("/users/login", login)
-app.post("/users/register", register)
-app.get('/api/checkToken', checkToken)
+app.post("/users/login", login);
+app.post("/users/register", register);
+app.get("/api/checkToken", checkToken);
 
-app.post('/api/createCard',createCard)
-app.post('/api/addBill',createBill)
+app.post("/api/createCard", createCard);
+app.post("/api/addBill", createBill);
 
-app.get('/api/getBorrowers',getBorrowers)
-app.get('/api/getEachBorrowers/:nationID', getEachBorrowers);
+app.get("/api/getBorrowers", getBorrowers);
+app.get("/api/getEachBorrowers/:nationID", getEachBorrowers);
+
+app.post("/api/creditScrolling", creditScrolling);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
