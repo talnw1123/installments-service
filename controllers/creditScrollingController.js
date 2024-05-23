@@ -1,13 +1,12 @@
 const axios = require("axios");
 
 const creditScrolling = async (req, res) => {
-  const { age, gender, income, maritalStatus, children } = req.body;
+  const { age, income, maritalStatus, children } = req.body;
   try {
     const response = await axios.post(
       "http://127.0.0.1:5000/predict-credit-scrolling",
       {
         Age: age,
-        Gender: gender,
         Income: income,
         "Marital Status": maritalStatus,
         "Number of Children": children,
