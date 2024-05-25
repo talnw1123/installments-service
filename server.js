@@ -21,6 +21,7 @@ const cors = require("cors");
 const cron = require("node-cron");
 const sendSMSController = require("./controllers/sendSMSController");
 const contractRoutes = require("./routes/contractRoute");
+const { downloadContract } = require("./controllers/downloadPdfController");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -69,6 +70,7 @@ app.get("/api/getBorrowers", getBorrowers);
 app.get("/api/getEachBorrowers/:nationID", getEachBorrowers);
 
 app.post("/api/creditScrolling", creditScrolling);
+app.post("/api/downloadPdf", downloadContract);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
