@@ -15,10 +15,7 @@ const getBorrowers = require("./controllers/getAllBorrowerController");
 const getEachBorrowers = require("./controllers/getEachBorrowerController");
 
 const creditScrolling = require("./controllers/creditScrollingController");
-const createCard = require('./controllers/createCardController')
-const createBill = require('./controllers/addBillsController')
-const getBorrowers = require('./controllers/getAllBorrowerController')
-const getEachBorrowers = require('./controllers/getEachBorrowerController')
+
 const addPayment = require('./controllers/ิaddPaymentController')
 const getAllBills = require('./controllers/getAllBillsController')
 
