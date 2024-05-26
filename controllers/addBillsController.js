@@ -41,7 +41,7 @@ const createBill = async (req, res) => {
     contractNumber,
     totalLoan,
     downPayment,
-    numberOfInstallment,
+    numberOfInstallments,
     interestRates,
     totalInstallmentAmount
   } = req.body;
@@ -63,7 +63,7 @@ const createBill = async (req, res) => {
       contractNumber,
       totalLoan,
       downPayment,
-      numberOfInstallment,
+      numberOfInstallments,
       interestRates,
       totalInstallmentAmount
     });

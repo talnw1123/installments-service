@@ -13,6 +13,8 @@ const createCard = require('./controllers/createCardController')
 const createBill = require('./controllers/addBillsController')
 const getBorrowers = require('./controllers/getAllBorrowerController')
 const getEachBorrowers = require('./controllers/getEachBorrowerController')
+const addPayment = require('./controllers/ิaddPaymentController')
+const getAllBills = require('./controllers/getAllBillsController')
 
 const sendSMS = require("./routes/sendSMSRoute");
 const cors = require("cors");
@@ -67,6 +69,8 @@ app.post('/api/addBill',createBill)
 app.get('/api/getBorrowers',getBorrowers)
 app.get('/api/getEachBorrowers/:nationID', getEachBorrowers);
 
+app.post('/api/addPayment',addPayment)
+app.get('/api/getAllBills',getAllBills)
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
 });
