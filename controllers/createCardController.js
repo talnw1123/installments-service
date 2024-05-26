@@ -46,7 +46,9 @@ const createCard = async (req, res) => {
     // ตรวจสอบว่ามี Borrower ที่มี nationID เดียวกันอยู่แล้วหรือไม่
     const existingBorrower = await Borrower.findOne({ nationID });
     if (existingBorrower) {
-      return res.status(400).json({ message: 'Borrower with this nationID already exists' });
+      return res
+        .status(400)
+        .json({ message: "Borrower with this nationID already exists" });
     }
 
     const newBorrower = await Borrower.create({
@@ -89,11 +91,11 @@ const createCard = async (req, res) => {
       phoneOfGuarantorInJob,
       // bills,
     });
-    
+
     res.status(201).json(newBorrower);
   } catch (err) {
-    console.error('Error in creating borrower:', err);
-    res.status(400).json({ message: 'Error in creating borrower' });
+    console.error("Error in creating borrower:", err);
+    res.status(400).json({ message: "Error in creating borrower" });
   }
 };
 

@@ -6,9 +6,15 @@ const port = process.env.PORT || 4000;
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/userRoute");
 
-const login = require('./controllers/loginController')
-const register = require('./controllers/registerController')
+const login = require("./controllers/loginController");
+const register = require("./controllers/registerController");
 const checkToken = require("./controllers/checkTokenController");
+const createCard = require("./controllers/createCardController");
+const createBill = require("./controllers/addBillsController");
+const getBorrowers = require("./controllers/getAllBorrowerController");
+const getEachBorrowers = require("./controllers/getEachBorrowerController");
+
+const creditScrolling = require("./controllers/creditScrollingController");
 const createCard = require('./controllers/createCardController')
 const createBill = require('./controllers/addBillsController')
 const getBorrowers = require('./controllers/getAllBorrowerController')
@@ -21,6 +27,7 @@ const cors = require("cors");
 const cron = require("node-cron");
 const sendSMSController = require("./controllers/sendSMSController");
 const contractRoutes = require("./routes/contractRoute");
+const { downloadContract } = require("./controllers/downloadPdfController");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -47,8 +54,7 @@ app.use(
 );
 
 // cron.schedule(process.env.JOB_SCHEDULE, () => {
-//   // ใช้คำสั่ง find db เช็คว่าวันปัจจุบันใครยังไม่จ่ายค่างวดบ้าง แล้วให้ส่ง sms
-//   // sendSMSController.sendSMS();
+//   sendSMSController.sendSMS();
 // });
 
 app.use("/users", userRoutes);
@@ -59,15 +65,18 @@ app.use("/contract", contractRoutes);
 // app.get("/", (req, res) => {
 //   res.status(200).send("Welcome Kmutt");
 // });
-app.post("/users/login", login)
-app.post("/users/register", register)
-app.get('/api/checkToken', checkToken)
+app.post("/users/login", login);
+app.post("/users/register", register);
+app.get("/api/checkToken", checkToken);
 
-app.post('/api/createCard',createCard)
-app.post('/api/addBill',createBill)
+app.post("/api/createCard", createCard);
+app.post("/api/addBill", createBill);
 
 app.get('/api/getBorrowers',getBorrowers)
 app.get('/api/getEachBorrowers/:nationID', getEachBorrowers);
+
+app.post("/api/creditScrolling", creditScrolling);
+app.post("/api/downloadPdf", downloadContract);
 
 app.post('/api/addPayment',addPayment)
 app.get('/api/getAllBills',getAllBills)
