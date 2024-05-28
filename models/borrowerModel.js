@@ -20,63 +20,48 @@ const borrowerSchema = mongoose.Schema(
     },
     firstName: {
       type: String,
-      
     },
     lastName: {
       type: String,
-      
     },
     birthDate: {
       type: Date,
-      
     },
     job: {
       type: String,
-      
     },
     income: {
       type: String,
-      
     },
     phone: {
       type: String,
-      
     },
     phoneInJob: {
       type: String,
-      
     },
     status: {
       type: String,
-      
     },
     kids: {
       type: String,
-      
     },
     addressReal: {
       type: String,
-      
     },
     addressCurrent: {
       type: String,
-      
     },
     addressJob: {
       type: String,
-      
     },
     googleMapAdressReal: {
       type: String,
-      
     },
     googleMapAdressCurrent: {
       type: String,
-      
     },
     googleMapAdressJob: {
       type: String,
-      
     },
     firstNameOfSpouse: {
       type: String,
@@ -98,67 +83,54 @@ const borrowerSchema = mongoose.Schema(
     },
     addressOfSpouseJob: {
       type: String,
-      
     },
     googleMapAdressJobOfSpouse: {
       type: String,
-      
     },
     guarantorNationID: {
       type: String,
-      
     },
     guarantorFirstName: {
       type: String,
-      
     },
     guarantorLastName: {
       type: String,
-      
     },
     phoneOfGuarantor: {
       type: String,
-      
     },
     addressOfGuarantorReal: {
       type: String,
-      
     },
     addressOfGuarantorCurrent: {
       type: String,
-      
     },
     addressOfGuarantorJob: {
       type: String,
-      
     },
     googleMapAdressRealOfGuarantor: {
       type: String,
-      
     },
     googleMapAdressCurrentOfGuarantor: {
       type: String,
-      
     },
     googleMapAdressJobOfGuarantor: {
       type: String,
-      
     },
     jobOfGuarantor: {
       type: String,
-      
     },
     incomeOfGuarantor: {
       type: String,
-      
     },
     phoneOfGuarantorInJob: {
       type: String,
-      
     },
     bills: {
       type: String,
-      
+    },
+    creditScoreText: {
+      type: String,
     },
   },
   {

@@ -119,12 +119,12 @@ const createCard = require("./controllers/createCardController");
 const createBill = require("./controllers/addBillsController");
 const getBorrowers = require("./controllers/getAllBorrowerController");
 const getEachBorrowers = require("./controllers/getEachBorrowerController");
-const updateCard = require("./controllers/editBorrowerController")
+const updateCard = require("./controllers/editBorrowerController");
 
 const creditScrolling = require("./controllers/creditScrollingController");
 
-const addPayment = require('./controllers/ิaddPaymentController')
-const getAllBills = require('./controllers/getAllBillsController')
+const addPayment = require("./controllers/ิaddPaymentController");
+const getAllBills = require("./controllers/getAllBillsController");
 
 const sendSMS = require("./routes/sendSMSRoute");
 const cors = require("cors");
@@ -133,8 +133,8 @@ const sendSMSController = require("./controllers/sendSMSController");
 const contractRoutes = require("./routes/contractRoute");
 const { downloadContract } = require("./controllers/downloadPdfController");
 
-const calculateDailyLog = require('./controllers/logBillsController'); // Import the calculateDailyLog controller
-const getDailyLogs = require('./controllers/dailyLogController');
+const calculateDailyLog = require("./controllers/logBillsController"); // Import the calculateDailyLog controller
+const getDailyLogs = require("./controllers/dailyLogController");
 
 app.use(express.json());
 app.use(cookieParser());
@@ -160,9 +160,9 @@ app.use(
   })
 );
 
-// cron.schedule(process.env.JOB_SCHEDULE, () => {
-//   sendSMSController.sendSMS();
-// });
+cron.schedule(process.env.JOB_SCHEDULE, () => {
+  sendSMSController.sendSMS();
+});
 
 app.use("/users", userRoutes);
 app.get("/api/checkToken", checkToken);
@@ -179,30 +179,31 @@ app.get("/api/checkToken", checkToken);
 app.post("/api/createCard", createCard);
 app.post("/api/addBill", createBill);
 
-app.get('/api/getBorrowers',getBorrowers)
-app.get('/api/getEachBorrowers/:nationID', getEachBorrowers);
-app.post('/api/updateCard/:nationID',updateCard)
+app.get("/api/getBorrowers", getBorrowers);
+app.get("/api/getEachBorrowers/:nationID", getEachBorrowers);
+app.post("/api/updateCard/:nationID", updateCard);
 
 app.post("/api/creditScrolling", creditScrolling);
 app.post("/api/downloadPdf", downloadContract);
 
-app.post('/api/addPayment',addPayment)
-app.get('/api/getAllBills',getAllBills)
+app.post("/api/addPayment", addPayment);
+app.get("/api/getAllBills", getAllBills);
 
-app.use('/api/dailyLogs', getDailyLogs);
+app.use("/api/dailyLogs", getDailyLogs);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
 });
 
-cron.schedule('*/10 * * * * *', () => {
-  calculateDailyLog().then(() => {
-    console.log('Daily log calculated and saved.');
-  }).catch(error => {
-    console.error('Error calculating daily log:', error);
-  });
+cron.schedule("*/10 * * * * *", () => {
+  calculateDailyLog()
+    .then(() => {
+      console.log("Daily log calculated and saved.");
+    })
+    .catch((error) => {
+      console.error("Error calculating daily log:", error);
+    });
 });
-
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

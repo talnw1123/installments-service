@@ -39,6 +39,7 @@ const createCard = async (req, res) => {
     jobOfGuarantor,
     incomeOfGuarantor,
     phoneOfGuarantorInJob,
+    creditScoreText,
     // bills,
   } = req.body;
 
@@ -89,6 +90,7 @@ const createCard = async (req, res) => {
       jobOfGuarantor,
       incomeOfGuarantor,
       phoneOfGuarantorInJob,
+      creditScoreText,
       // bills,
     });
 
