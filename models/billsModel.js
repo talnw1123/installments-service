@@ -12,14 +12,21 @@ const paymentHistorySchema = mongoose.Schema({
   },
   amount: {
     type: Number,
-    required: true,
   },
+  damages: {
+    type: Number,
+  },
+  status: {
+    type: String,
+    enum: ['unpaid', 'paid'],
+    default: 'unpaid'
+  }
 });
 
 function calculateTotalPaymentWithInterest(doc) {
-  const totalLoanValue = parseFloat(doc.totalLoan);
+  const totalInstallmentAmountValue = parseFloat(doc.totalInstallmentAmount);
   const interestRatesValue = parseFloat(doc.interestRates) / 100;
-  return Math.ceil(totalLoanValue * (1 + interestRatesValue));
+  return Math.ceil(totalInstallmentAmountValue * (100+interestRatesValue)/100);
 }
 
 const billsSchema = mongoose.Schema(
