@@ -26,7 +26,7 @@ const paymentHistorySchema = mongoose.Schema({
 function calculateTotalPaymentWithInterest(doc) {
   const totalInstallmentAmountValue = parseFloat(doc.totalInstallmentAmount);
   const interestRatesValue = parseFloat(doc.interestRates) / 100;
-  return Math.ceil(totalInstallmentAmountValue * (100+interestRatesValue)/100);
+  return Math.ceil(totalInstallmentAmountValue * (1+interestRatesValue));
 }
 
 const billsSchema = mongoose.Schema(
