@@ -136,6 +136,9 @@ const { downloadContract } = require("./controllers/downloadPdfController");
 const calculateDailyLog = require("./controllers/logBillsController"); // Import the calculateDailyLog controller
 const getDailyLogs = require("./controllers/dailyLogController");
 
+const getBorrowersName = require("./controllers/addInstallmentController");
+const createBillCard = require("./controllers/createBillCardController");
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -190,6 +193,9 @@ app.post("/api/addPayment", addPayment);
 app.get("/api/getAllBills", getAllBills);
 
 app.use("/api/dailyLogs", getDailyLogs);
+
+app.get("/api/getBorrowersName", getBorrowersName);
+app.post("/api/createBillCard", createBillCard);
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
