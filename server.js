@@ -135,6 +135,8 @@ const { downloadContract } = require("./controllers/downloadPdfController");
 
 const calculateDailyLog = require("./controllers/logBillsController"); // Import the calculateDailyLog controller
 const getDailyLogs = require("./controllers/dailyLogController");
+const updatePaymentHistory = require("./controllers/updateDamageController");
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -190,6 +192,8 @@ app.post("/api/addPayment", addPayment);
 app.get("/api/getAllBills", getAllBills);
 
 app.use("/api/dailyLogs", getDailyLogs);
+
+app.post("/api/updatePaymentHistory",updatePaymentHistory)
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome Kmutt");
