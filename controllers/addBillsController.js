@@ -27,7 +27,7 @@ const createBill = async (req, res) => {
     for (let i = 1; i <= numberOfInstallments; i++) {
       paymentHistory.push({
         timePayment: i,
-        amount: Math.ceil(totalInstallmentAmount * (1 + parseFloat(interestRates) / 100) / numberOfInstallments),
+        amount: (totalInstallmentAmount * (1 + parseFloat(interestRates) / 100) / numberOfInstallments),
         status: 'unpaid'
       });
     }

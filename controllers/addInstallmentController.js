@@ -4,7 +4,7 @@ async function getBorrowersName(req, res) {
   try {
     const borrowers = await Borrower.find(
       { nationID: { $exists: true } },
-      "firstName lastName"
+      "firstName lastName nationID" // เพิ่มการเลือก nationID
     );
     res.json(borrowers);
   } catch (err) {

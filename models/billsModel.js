@@ -137,7 +137,7 @@ const paymentHistorySchema = mongoose.Schema({
 function calculateTotalPaymentWithInterest(doc) {
   const totalInstallmentAmountValue = parseFloat(doc.totalInstallmentAmount);
   const interestRatesValue = parseFloat(doc.interestRates) / 100;
-  return Math.ceil(totalInstallmentAmountValue * (1+interestRatesValue));
+  return Math.ceil(totalInstallmentAmountValue * (1 + interestRatesValue));
 }
 
 const billsSchema = mongoose.Schema(
@@ -193,13 +193,21 @@ billsSchema.methods.calculateDailyLogs = async function () {
   const startOfDay = new Date(today.setHours(0, 0, 0, 0));
   const endOfDay = new Date(today.setHours(23, 59, 59, 999));
 
-  const paymentsToday = this.paymentHistory.filter(payment => {
-    return payment.paymentDate >= startOfDay && payment.paymentDate <= endOfDay;
+  const bills = await mongoose.model('Bills').find();
+
+  let totalPaidToday = 0;
+  let totalDeptToday = 0;
+
+  bills.forEach(bill => {
+    const paidPayments = bill.paymentHistory.filter(payment => payment.status === 'paid');
+    const unpaidPayments = bill.paymentHistory.filter(payment => payment.status === 'unpaid');
+    
+    const totalPaidInBill = paidPayments.reduce((sum, payment) => sum + payment.amount, 0);
+    const totalUnpaidInBill = unpaidPayments.reduce((sum, payment) => sum + payment.amount, 0);
+
+    totalPaidToday += totalPaidInBill;
+    totalDeptToday += totalUnpaidInBill;
   });
-
-  const totalPaidToday = paymentsToday.reduce((sum, payment) => sum + payment.amount, 0);
-
-  const totalDeptToday = this.totalPaymentWithInterest - this.paymentHistory.reduce((sum, payment) => sum + payment.amount, 0);
 
   await DailyLog.findOneAndUpdate(
     { date: startOfDay },
